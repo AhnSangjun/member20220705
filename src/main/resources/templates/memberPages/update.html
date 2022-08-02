@@ -1,22 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/header :: head ('정보수정')">
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
-<body>
-<h2>정보수정</h2>
-<form action="/member/update" method="post" name="updateForm">
-    <input type="hidden" th:value="${updateMember.id}" name="id"><br>
-    이메일: <input type="text" th:value="${updateMember.memberEmail}" name="memberEmail" readonly> <br>
-    비밀번호: <input type="text" id="memberPassword" name="memberPassword"> <br>
-    이름: <input type="text" th:value="${updateMember.memberName}" name="memberName" readonly> <br>
-    나이: <input type="text" th:value="${updateMember.memberAge}" name="memberAge" readonly><br>
-    전화번호: <input type="text" id="memberMobile" th:value="${updateMember.memberMobile}" name="memberMobile"><br>
-    프로필: <input type="file" id="memberProfile" th:value="${updateMember.memberProfile}" name="memberProfile">
-    <input type="button" th:onclick="update()" value="정보수정">
-    <input type="button" th:onclick="updateAjax()" value="정보수정(put)">
+<body class="text-center d-flex flex-column h-100">
+<header th:replace="layout/header :: head"></header>
+
+<main class="form-signing"></main>
+<div class="Container border rounded flex-md-row mb-4 shadow-sm h-md-250">
+    <h2>정보수정</h2>
+    <form action="/member/update" method="post" name="updateForm">
+        <input type="hidden" th:value="${updateMember.id}" name="id"><br>
+        <!-- ID -->
+        <div>
+            <h3 class="join_title">
+                <label for="memberEmail">이메일</label> <br>
+            </h3>
+            <span class="box_int_memberEmail">
+                <input type="text" name="memberEmail" th:value="${updateMember.memberEmail}" id="memberEmail" readonly>
+            </span>
+            <span id="email-dup-result"></span> <br>
+        </div>
+
+        <!--PW -->
+        <div>
+            <h3 class="join_title">
+                <label for="memberPassword">비밀번호</label> <br>
+            </h3>
+            <span class="box_int_memberPassword">
+            <input type="password" id="memberPassword" name="memberPassword" readonly>
+        </span>
+        </div>
+
+        이름: <input type="text" th:value="${updateMember.memberName}" name="memberName" readonly> <br>
+        나이: <input type="text" th:value="${updateMember.memberAge}" name="memberAge" readonly><br>
+        전화번호: <input type="text" id="memberMobile" th:value="${updateMember.memberMobile}" name="memberMobile"><br>
+        프로필: <input type="file" id="memberProfile" th:value="${updateMember.memberProfile}" name="memberProfile">
+        <input type="button" th:onclick="update()" value="정보수정">
+        <input type="button" th:onclick="updateAjax()" value="정보수정(put)">
+</div>
 </form>
 </body>
 <script th:inline="javascript">
